@@ -16,16 +16,16 @@ VIDEO_FILE = "1.mp4"
 
 # --- SCÉNARIO DE L'ALGORITHME ---
 SCENARIO = [
-    (1, "Analyse biométrique lancée... Pupil Tracking actif.<br>L'utilisateur est captivé.<br>Niveau de stress : FAIBLE."),
-    (4, "Déduction : Profil 'Loup Solitaire'. Sentiment d'insécurité masculine détecté.<br>🎯 Pub : Formation crypto 'Devenez Millionnaire en 48h'."),
-    (6, "Action : L'utilisateur a 'liké' la vidéo.<br>+150 points au profil 'Crédulité'. On verrouille l'attention."),
-    (12, "Scroll détecté.<br>Scan Vidéo 2...<br>Détection de malaise : ÉLEVÉE.<br>Temps de visionnage : 1.2s."),
-    (13, "Skip immédiat.<br>Déduction : Intelligence critique présente. Difficile à manipuler.<br>⚠️ Alerte : Injecter 'Shock Value' pour casser les défenses."),
-    (18, "Scan Vidéo 3...<br>Sujet sensible. L'utilisateur est figé (3 secondes sans bouger).<br>L'algorithme jubile."),
-    (22, "Déduction : Humour noir détecté. Boussole morale défaillante.<br>🎯 Pub : Dropshipping de T-shirts ironiques absurdes."),
-    (28, "Scan Vidéo 4...<br>Contenu anxiogène.<br>Rythme cardiaque déduit (micro-mouvements du cou) : AUGMENTÉ."),
-    (32, "Déduction : Éco-anxiété chronique. Romance l'apocalypse.<br>🎯 Pub : Rations de survie luxe (goût bœuf bourguignon) à 150€."),
-    (40, "🚨 PROFILAGE UTILISATEUR TERMINÉ 🚨<br>Valeur marchande estimée : 0.42 centimes.<br>Prêt pour la vente des données aux annonceurs.")
+    (0.1, "Analyse biométrique lancée... Pupil Tracking actif.<br>L'utilisateur est captivé.<br>Niveau de stress : FAIBLE."),
+    (0.4, "Déduction : Profil 'Loup Solitaire'. Sentiment d'insécurité masculine détecté.<br>🎯 Pub : Formation crypto 'Devenez Millionnaire en 48h'."),
+    (1, "Action : L'utilisateur a 'liké' la vidéo.<br>+150 points au profil 'Crédulité'. On verrouille l'attention."),
+    (1.2, "Scroll détecté.<br>Scan Vidéo 2...<br>Détection de malaise : ÉLEVÉE.<br>Temps de visionnage : 1.2s."),
+    (3, "Skip immédiat.<br>Déduction : Intelligence critique présente. Difficile à manipuler.<br>⚠️ Alerte : Injecter 'Shock Value' pour casser les défenses."),
+    (4, "Scan Vidéo 3...<br>Sujet sensible. L'utilisateur est figé (3 secondes sans bouger).<br>L'algorithme jubile."),
+    (5, "Déduction : Humour noir détecté. Boussole morale défaillante.<br>🎯 Pub : Dropshipping de T-shirts ironiques absurdes."),
+    (7, "Scan Vidéo 4...<br>Contenu anxiogène.<br>Rythme cardiaque déduit (micro-mouvements du cou) : AUGMENTÉ."),
+    (9, "Déduction : Éco-anxiété chronique. Romance l'apocalypse.<br>🎯 Pub : Rations de survie luxe (goût bœuf bourguignon) à 150€."),
+    (11, "🚨 PROFILAGE UTILISATEUR TERMINÉ 🚨<br>Valeur marchande estimée : 0.42 centimes.<br>Prêt pour la vente des données aux annonceurs.")
 ]
 
 # --- FONCTION HACK TYPEWRITER ---
@@ -176,5 +176,6 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
 
 
