@@ -14,7 +14,7 @@ import time
 st.set_page_config(page_title="Simulation TikTok - Léo & Florian", layout="wide", initial_sidebar_state="collapsed")
 
 # Nom de votre fichier vidéo unique (à placer dans le même dossier que app.py)
-VIDEO_FILE = "vidéo .mp4"
+VIDEO_FILE = "1.mp4"
 
 # --- SCÉNARIO DE L'ALGORITHME (À VOUS DE CHANGER LES TIMINGS ET LE TEXTE) ---
 # Format : (Seconde précise dans la vidéo, "Trash Talk du terminal")
@@ -206,3 +206,4 @@ hide_st_style = """
             """
 
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
