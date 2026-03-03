@@ -13,7 +13,6 @@ st.set_page_config(page_title="Simulation TikTok - Léo & Florian", layout="wide
 
 # Nom de votre fichier vidéo unique
 VIDEO_FILE = "1.mp4"
-
 # --- SCÉNARIO DE L'ALGORITHME ---
 SCENARIO = [
     (1, "Analyse biométrique lancée... Pupil Tracking actif.<br>L'utilisateur est captivé."),
@@ -171,6 +170,7 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
 
 
 
