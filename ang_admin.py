@@ -90,7 +90,7 @@ def render_typewriter(scenario, video_b64):
         let currentIndex = 0;
         let isWriting = false;
 
-        function typeWriter(text, element, speed = 30) {{
+        function typeWriter(text, element, speed = 12) {{
             isWriting = true;
             let i = 0;
             // On prépare le conteneur du texte pour pouvoir le remplir lettre par lettre
@@ -180,4 +180,5 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
 
