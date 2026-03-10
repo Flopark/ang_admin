@@ -19,7 +19,7 @@ st.set_page_config(page_title="Simulation TikTok - Léo & Florian", layout="wide
 
 # ==========================================
 # VIDÉO DE TEST INFAILLIBLE (Ne la change pas pour le premier test !)
-VIDEO_URL = "https://github.com/Flopark/ang_admin/blob/f6fcaf1eafdea00b8728e6b7b31dd2d8ffea407d/v.mp4"
+VIDEO_URL = "https://raw.githubusercontent.com/Flopark/ang_admin/main/v.mp4"
 # ==========================================
 
 # --- SCÉNARIO DE L'ALGORITHME (Adapté pour votre vidéo de 1 minute) ---
@@ -166,3 +166,4 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
