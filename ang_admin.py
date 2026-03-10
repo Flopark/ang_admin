@@ -62,7 +62,7 @@ def render_typewriter(scenario, video_b64):
 
     <div class="main-container">
         <div class="phone-container">
-            <video id="master-video" autoplay playsinline controls>
+            <video id="master-video" playsinline controls crossorigin="anonymous">
                 <source src="data:video/mp4;base64,{video_b64}" type="video/mp4">
                 Votre navigateur ne supporte pas la vidéo.
             </video>
@@ -183,6 +183,7 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
 
 
 
