@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 import streamlit as st
 import base64
 import os
@@ -9,8 +10,7 @@ st.set_page_config(page_title="Simulation TikTok - Léo & Florian", layout="wide
 # Nom de votre fichier vidéo unique
 VIDEO_FILE = "1.mp4"
 
-# --- SCÉNARIO DE L'ALGORITHME ---
-# --- ALGORITHM SCENARIO (9 Logs - Ultimate Dark Roast Edition) ---
+# --- SCÉNARIO DE L'ALGORITHME (9 Logs - Ultimate Dark Roast Edition) ---
 # Format : (Seconde précise, "Texte du log en anglais")
 SCENARIO = [
     (4, "Analyse_Logs: User liked 'Sigma Male' content.<br>Scan: Delusional main-character syndrome detected. Severe lack of female contact confirmed.<br>🎯 Target: Overpriced crypto courses and 'Alpha' podcasts."),
@@ -29,14 +29,13 @@ SCENARIO = [
     
     (50, "Analyse_Logs: Raging man in car. Heart rate synchronized.<br>Scan: User resonates with pure, toxic anger. Deep frustration with own miserable life detected.<br>🎯 Target: Anger management apps and dashcams."),
     
-    (64, "🚨 PROFILING COMPLETE: SOUL HARVESTED 🚨<br>Summary: Isolated, doomscrolling, emotionally stunted man-child.<br>Estimated Market Value: $0.003.<br>Action: Packaging mental illness data. Selling to the highest bidder...")
+    (64, "🚨 PROFILING COMPLETE: SOUL HARVESTED 🚨<br>Summary: Isolated man-child, obsessed with bad news, emotionally immature.<br>Estimated market value: $0.003.<br>Action: Compilation of data relating to mental illness. IP address, age, gender, place of residence, desires and needs collected and ready for sale... ")
 ]
 
 # --- FONCTION HACK TYPEWRITER ---
 def render_typewriter(scenario, video_b64):
     js_scenario = ""
     for second, text in scenario:
-        # CORRECTION DU BUG : On remplace les apostrophes par des \' pour que le JavaScript ne crashe pas !
         text_html = text.replace("\n", "<br>").replace("'", "\\'")
         js_scenario += f"    {{ time: {second}, text: '{text_html}' }},\n"
 
@@ -47,12 +46,12 @@ def render_typewriter(scenario, video_b64):
         .main-container {{ display: flex; gap: 20px; align-items: start; max-width: 1200px; margin: 0 auto; }}
         
         .phone-container {{ width: 360px; height: 650px; background: #000; border-radius: 30px; border: 12px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; overflow: hidden; }}
-        /* CORRECTION : Ajustement de la vidéo pour voir les contrôles */
         video {{ width: 100%; height: 100%; object-fit: cover; }}
         
         .terminal-container {{ flex: 1; height: 630px; background-color: #1e1e1e; border: 2px solid #333; border-radius: 10px; font-family: 'Share Tech Mono', monospace; overflow: hidden; position: relative; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; }}
         .terminal-header {{ position: absolute; top: 0; left: 0; right: 0; height: 30px; background: #333; color: #aaa; display: flex; align-items: center; justify-content: center; font-size: 12px; }}
-        .terminal-content {{ margin-top: 30px; flex: 1; overflow-y: auto; display: flex; flex-direction: column-reverse; }}
+        /* CORRECTION : L'affichage redevient normal (de haut en bas) */
+        .terminal-content {{ margin-top: 30px; flex: 1; overflow-y: auto; padding-bottom: 20px; }}
         
         .log-entry {{ margin-bottom: 15px; color: #00ff00; line-height: 1.4; border-left: 3px solid transparent; padding-left: 10px; }}
         .log-entry.new {{ border-left-color: red; animation: blink-border 1s steps(2) infinite; }}
@@ -93,17 +92,14 @@ def render_typewriter(scenario, video_b64):
         function typeWriter(text, element, speed = 12) {{
             isWriting = true;
             let i = 0;
-            // On prépare le conteneur du texte pour pouvoir le remplir lettre par lettre
             let textContainer = document.createElement('span');
             element.innerHTML = '<span class="timestamp">[' + formatTime(video.currentTime) + '] ANALYSE_LOGS:</span><br>';
             element.appendChild(textContainer);
             
-            // Le curseur qui clignote
             let cursor = document.createElement('span');
             cursor.className = 'cursor';
             element.appendChild(cursor);
 
-            // Pour gérer l'insertion de balises HTML comme <br>
             let tempHTML = "";
 
             function write() {{
@@ -116,7 +112,10 @@ def render_typewriter(scenario, video_b64):
                         i++;
                     }}
                     textContainer.innerHTML = tempHTML;
-                    terminalContent.scrollTop = 0;
+                    
+                    // CORRECTION : Scroll automatique vers le bas de la console !
+                    terminalContent.scrollTop = terminalContent.scrollHeight;
+                    
                     setTimeout(write, speed);
                 }} else {{
                     isWriting = false;
@@ -135,10 +134,13 @@ def render_typewriter(scenario, video_b64):
                     
                     const oldLogs = typewriterArea.querySelectorAll('.log-entry');
                     if (oldLogs.length > 0) {{
-                        oldLogs[0].classList.remove('new');
+                        // On enlève le bord rouge du tout dernier log ajouté
+                        oldLogs[oldLogs.length - 1].classList.remove('new');
                     }}
                     
-                    typewriterArea.prepend(newLog);
+                    // CORRECTION : On ajoute le nouveau message à la FIN (en bas)
+                    typewriterArea.appendChild(newLog);
+                    
                     typeWriter(scenario[currentIndex].text, newLog);
                     currentIndex++;
                 }}
@@ -168,7 +170,6 @@ if os.path.exists(VIDEO_FILE):
     
     st.components.v1.html(render_typewriter(SCENARIO, video_b64), height=700)
     
-    # Message d'aide si la vidéo ne démarre pas
     st.warning("⚠️ Si la vidéo ne se lance pas toute seule, cliquez sur le bouton 'Play' directement sur le téléphone à gauche !")
 else:
     st.error(f"Fichier vidéo '{VIDEO_FILE}' introuvable. Placez la vidéo dans le même dossier que ce code.")
@@ -180,5 +181,6 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
 
 
