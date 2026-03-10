@@ -20,7 +20,7 @@ st.set_page_config(page_title="Simulation TikTok - Léo & Florian", layout="wide
 # 🛑 METS LE LIEN "RAW" DE TA VIDÉO GITHUB ICI 🛑
 # Le lien DOIT commencer par https://raw.githubusercontent.com/... et finir par .mp4
 # Si tu laisses le lien ci-dessous, tu verras un lapin d'animation pour tester que l'application marche.
-VIDEO_URL = "https://raw.githubusercontent.com/w3schools/html/mov_bbb.mp4" 
+VIDEO_URL = "https://github.com/Flopark/ang_admin/blob/main/v.mp4" 
 # ==========================================
 
 # --- SCÉNARIO DE L'ALGORITHME (Adapté pour votre vidéo de 1 minute) ---
@@ -177,6 +177,7 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
 
 
 
