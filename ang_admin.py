@@ -10,30 +10,34 @@ Created on Tue Mar  3 14:54:28 2026
 
 @author: march
 """
+# -*- coding: utf-8 -*-
 import streamlit as st
-import base64
-import os
 
 # --- CONFIGURATION DE LA PAGE ---
 st.set_page_config(page_title="Simulation TikTok - Léo & Florian", layout="wide", initial_sidebar_state="collapsed")
 
-# Nom de votre fichier vidéo unique
-VIDEO_FILE = "v.mp4"
+# ==========================================
+# 🛑 METS LE LIEN "RAW" DE TA VIDÉO GITHUB ICI 🛑
+# Le lien DOIT commencer par https://raw.githubusercontent.com/... et finir par .mp4
+# Si tu laisses le lien ci-dessous, tu verras un lapin d'animation pour tester que l'application marche.
+VIDEO_URL = "https://raw.githubusercontent.com/w3schools/html/mov_bbb.mp4" 
+# ==========================================
 
-# --- SCÉNARIO DE L'ALGORITHME ---
+# --- SCÉNARIO DE L'ALGORITHME (Adapté pour votre vidéo de 1 minute) ---
+# Format : (Seconde précise, "Texte à afficher dans la console")
 SCENARIO = [
-    (1, "Analyse biométrique lancée... Pupil Tracking actif.<br>L'utilisateur est captivé."),
-    (3, "Déduction V1 : Profil 'Loup Solitaire'.<br>🎯 Pub : Formation crypto 'Devenez Millionnaire'."),
-    (5, "Scroll rapide détecté.<br>Vidéo 2 zappée en 0.4s. Déduction : Intolérance au malaise."),
-    (7, "Vidéo 3... Arrêt sur image.<br>Humour noir détecté. Boussole morale en baisse."),
-    (9, "🚨 PROFILAGE COMPLET EN 10s 🚨<br>Valeur marchande : 0.42 centimes. Vente en cours...")
+    (2, "Analyse biométrique lancée... Pupil Tracking actif.<br>L'utilisateur est captivé par le début de la vidéo."),
+    (12, "Déduction V1 : Profil 'Loup Solitaire'.<br>🎯 Pub : Formation crypto 'Devenez Millionnaire'."),
+    (25, "Scroll rapide détecté.<br>Vidéo 2 zappée. Déduction : Intolérance au malaise."),
+    (38, "Vidéo 3... Arrêt sur image.<br>Humour noir détecté. Boussole morale en baisse."),
+    (55, "🚨 PROFILAGE COMPLET 🚨<br>Valeur marchande : 0.42 centimes. Vente en cours aux annonceurs...")
 ]
 
-# --- FONCTION HACK TYPEWRITER ---
-def render_typewriter(scenario, video_b64):
+# --- FONCTION HACK TYPEWRITER (Le visuel de la fausse application et de la console) ---
+def render_typewriter(scenario, video_url):
     js_scenario = ""
     for second, text in scenario:
-        # Sécurité pour les apostrophes
+        # Sécurité : on "échappe" les apostrophes pour ne pas faire planter le script
         text_html = text.replace("\n", "<br>").replace("'", "\\'")
         js_scenario += f"    {{ time: {second}, text: '{text_html}' }},\n"
 
@@ -43,14 +47,16 @@ def render_typewriter(scenario, video_b64):
         body {{ background-color: #0e1117; color: #fff; margin: 0; padding: 0; }}
         .main-container {{ display: flex; gap: 20px; align-items: start; max-width: 1200px; margin: 0 auto; }}
         
+        /* Le faux téléphone */
         .phone-container {{ width: 360px; height: 650px; background: #000; border-radius: 30px; border: 12px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; overflow: hidden; }}
-        
         video {{ width: 100%; height: 100%; object-fit: cover; background-color: #000; }}
         
+        /* La console de Florian à droite */
         .terminal-container {{ flex: 1; height: 630px; background-color: #1e1e1e; border: 2px solid #333; border-radius: 10px; font-family: 'Share Tech Mono', monospace; overflow: hidden; position: relative; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; }}
-        .terminal-header {{ position: absolute; top: 0; left: 0; right: 0; height: 30px; background: #333; color: #aaa; display: flex; align-items: center; justify-content: center; font-size: 12px; }}
+        .terminal-header {{ position: absolute; top: 0; left: 0; right: 0; height: 30px; background: #333; color: #aaa; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; letter-spacing: 1px; }}
         .terminal-content {{ margin-top: 30px; flex: 1; overflow-y: auto; display: flex; flex-direction: column-reverse; }}
         
+        /* Les messages de l'algorithme */
         .log-entry {{ margin-bottom: 15px; color: #00ff00; line-height: 1.4; border-left: 3px solid transparent; padding-left: 10px; }}
         .log-entry.new {{ border-left-color: red; animation: blink-border 1s steps(2) infinite; }}
         .timestamp {{ color: #888; font-size: 0.8em; margin-right: 10px; }}
@@ -63,13 +69,13 @@ def render_typewriter(scenario, video_b64):
     <div class="main-container">
         <div class="phone-container">
             <video id="master-video" playsinline controls crossorigin="anonymous">
-                <source src="data:video/mp4;base64,{video_b64}" type="video/mp4">
-                Votre navigateur ne supporte pas la vidéo.
+                <source src="{video_url}" type="video/mp4">
+                Votre navigateur ne supporte pas la vidéo HTML5.
             </video>
         </div>
 
         <div class="terminal-container">
-            <div class="terminal-header">ALGORITHM LOGS | LEO & FLORIAN TIKTOK presentation</div>
+            <div class="terminal-header">ALGORITHM LOGS | LÉO & FLORIAN TIKTOK PRESENTATION</div>
             <div class="terminal-content" id="terminal-content">
                 <div id="typewriter-area"></div>
             </div>
@@ -88,10 +94,7 @@ def render_typewriter(scenario, video_b64):
         let currentIndex = 0;
         let isWriting = false;
 
-        // On s'assure que la vidéo a bien du son si on clique dessus
-        video.volume = 1.0;
-
-        function typeWriter(text, element, speed = 14) {{
+        function typeWriter(text, element, speed = 15) {{
             isWriting = true;
             let i = 0;
             let textContainer = document.createElement('span');
@@ -123,6 +126,7 @@ def render_typewriter(scenario, video_b64):
             write();
         }}
 
+        // Détecte le temps de la vidéo à chaque fraction de seconde
         video.ontimeupdate = function() {{
             const currentTime = video.currentTime;
             
@@ -154,28 +158,18 @@ def render_typewriter(scenario, video_b64):
     """
     return html_content
 
-# --- CORPS PRINCIPAL ---
+# --- INTERFACE STREAMLIT ---
 st.title("📱 TikTok : L'économie de votre attention")
 st.markdown("*Simulation de la collecte de données en temps réel.*")
 st.markdown("---")
 
-if os.path.exists(VIDEO_FILE):
-    # SÉCURITÉ POIDS DE LA VIDÉO
-    file_size_mb = os.path.getsize(VIDEO_FILE) / (1024 * 1024)
-    
-    if file_size_mb > 15:
-        st.error(f"🚨 ATTENTION : Ta vidéo fait {file_size_mb:.1f} Mo. Elle est trop lourde pour être chargée ! Tu dois la compresser en dessous de 10 Mo pour que l'écran ne soit pas noir.")
-    else:
-        with open(VIDEO_FILE, "rb") as f:
-            video_bytes = f.read()
-        video_b64 = base64.b64encode(video_bytes).decode()
-        
-        st.components.v1.html(render_typewriter(SCENARIO, video_b64), height=700)
-        
-        st.warning("⚠️ Si la vidéo ne se lance pas toute seule, cliquez sur le bouton 'Play' directement sur le téléphone à gauche !")
-else:
-    st.error(f"Fichier vidéo '{VIDEO_FILE}' introuvable. Placez la vidéo dans le même dossier que ce code.")
+# Injection du HTML avec la vidéo et le script
+st.components.v1.html(render_typewriter(SCENARIO, VIDEO_URL), height=700)
 
+# Message d'instruction pour vous le jour J
+st.info("💡 **Instructions :** Cliquez sur le bouton 'Play' du téléphone à gauche pour démarrer la présentation. La console à droite s'animera toute seule !")
+
+# Cacher les éléments inutiles de Streamlit (Menu, Footer) pour faire plus propre
 hide_st_style = """
             <style>
             [data-testid="stHeader"] {display: none;}
