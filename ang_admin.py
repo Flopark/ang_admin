@@ -5,7 +5,7 @@ import base64
 import os
 
 # --- CONFIGURATION DE LA PAGE ---
-st.set_page_config(page_title="Simulation TikTok - Léo & Florian", layout="wide", initial_sidebar_state="collapsed")
+st.set_page_config(page_title="Simulation TikTok ", layout="wide", initial_sidebar_state="collapsed")
 
 # Nom de votre fichier vidéo unique
 VIDEO_FILE = "1.mp4"
@@ -159,8 +159,8 @@ def render_typewriter(scenario, video_b64):
     return html_content
 
 # --- CORPS PRINCIPAL ---
-st.title("📱 TikTok : L'économie de votre attention")
-st.markdown("*Simulation de la collecte de données en temps réel.*")
+st.title("📱 TikTok : Doom scrolling")
+st.markdown("*Data collection simulation.*")
 st.markdown("---")
 
 if os.path.exists(VIDEO_FILE):
@@ -170,7 +170,7 @@ if os.path.exists(VIDEO_FILE):
     
     st.components.v1.html(render_typewriter(SCENARIO, video_b64), height=700)
     
-    st.warning("⚠️ Si la vidéo ne se lance pas toute seule, cliquez sur le bouton 'Play' directement sur le téléphone à gauche !")
+    st.warning("⚠️click play !")
 else:
     st.error(f"Fichier vidéo '{VIDEO_FILE}' introuvable. Placez la vidéo dans le même dossier que ce code.")
 
@@ -181,6 +181,7 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
 
 
 
