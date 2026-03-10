@@ -10,17 +10,26 @@ st.set_page_config(page_title="Simulation TikTok - Léo & Florian", layout="wide
 VIDEO_FILE = "1.mp4"
 
 # --- SCÉNARIO DE L'ALGORITHME ---
+# --- ALGORITHM SCENARIO (9 Logs - Ultimate Dark Roast Edition) ---
+# Format : (Seconde précise, "Texte du log en anglais")
 SCENARIO = [
-    (1, "Analyse biométrique lancée... Pupil Tracking actif.<br>L'utilisateur est captivé.<br>Niveau de stress : FAIBLE."),
-    (4, "Déduction : Profil 'Loup Solitaire'. Sentiment d'insécurité masculine détecté.<br>🎯 Pub : Formation crypto 'Devenez Millionnaire en 48h'."),
-    (6, "Action : L'utilisateur a 'liké' la vidéo.<br>+150 points au profil 'Crédulité'. On verrouille l'attention."),
-    (12, "Scroll détecté.<br>Scan Vidéo 2...<br>Détection de malaise : ÉLEVÉE.<br>Temps de visionnage : 1.2s."),
-    (13, "Skip immédiat.<br>Déduction : Intelligence critique présente. Difficile à manipuler.<br>⚠️ Alerte : Injecter 'Shock Value' pour casser les défenses."),
-    (18, "Scan Vidéo 3...<br>Sujet sensible. L'utilisateur est figé (3 secondes sans bouger).<br>L'algorithme jubile."),
-    (22, "Déduction : Humour noir détecté. Boussole morale défaillante.<br>🎯 Pub : Dropshipping de T-shirts ironiques absurdes."),
-    (28, "Scan Vidéo 4...<br>Contenu anxiogène.<br>Rythme cardiaque déduit (micro-mouvements du cou) : AUGMENTÉ."),
-    (32, "Déduction : Éco-anxiété chronique. Romance l'apocalypse.<br>🎯 Pub : Rations de survie luxe (goût bœuf bourguignon) à 150€."),
-    (40, "🚨 PROFILAGE UTILISATEUR TERMINÉ 🚨<br>Valeur marchande estimée : 0.42 centimes.<br>Prêt pour la vente des données aux annonceurs.")
+    (4, "Analyse_Logs: User liked 'Sigma Male' content.<br>Scan: Delusional main-character syndrome detected. Severe lack of female contact confirmed.<br>🎯 Target: Overpriced crypto courses and 'Alpha' podcasts."),
+    
+    (10, "Analyse_Logs: Cringe tolerance tested (Awkward dance transition).<br>Scan: User watched without flinching. Brain activity flatlining. Intelligence quotient dropping.<br>🎯 Target: Mind-numbing mobile game ads."),
+    
+    (18, "Analyse_Logs: WW3 Anime intro engaged. User liked the geopolitical disaster.<br>Scan: Eco-anxiety high, empathy zero. Romanticizes global conflict.<br>🎯 Target: Doomsday survival kits and tactical flashlights."),
+    
+    (24, "Analyse_Logs: Thirst trap detected. Pupil dilation confirmed.<br>Scan: Profound superficiality and crippling self-esteem issues. User is easily manipulated by visual stimuli.<br>🎯 Target: Hair loss treatments and fake luxury watches."),
+    
+    (31, "Analyse_Logs: Deepfake of convicted criminal singing. User liked the video.<br>Scan: Extreme dark humor processed. Moral compass: Non-existent. Psychopathy markers +45%.<br>🎯 Target: Obscure conspiracy documentaries."),
+    
+    (37, "Analyse_Logs: 'Minecraft IRL' watched.<br>Scan: Arrested development confirmed. User is legally an adult but mentally 12. Lives with parents.<br>🎯 Target: Toxic energy drinks and cheap LED room lights."),
+    
+    (43, "Analyse_Logs: Real-world explosion footage. User liked it.<br>Scan: Morbid dopamine spike registered. Consumes tragedy for entertainment. Emotionally dead.<br>🎯 Target: Antidepressants and fast food delivery."),
+    
+    (50, "Analyse_Logs: Raging man in car. Heart rate synchronized.<br>Scan: User resonates with pure, toxic anger. Deep frustration with own miserable life detected.<br>🎯 Target: Anger management apps and dashcams."),
+    
+    (64, "🚨 PROFILING COMPLETE: SOUL HARVESTED 🚨<br>Summary: Isolated, doomscrolling, emotionally stunted man-child.<br>Estimated Market Value: $0.003.<br>Action: Packaging mental illness data. Selling to the highest bidder...")
 ]
 
 # --- FONCTION HACK TYPEWRITER ---
@@ -171,3 +180,4 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
+
