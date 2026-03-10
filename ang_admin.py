@@ -4,6 +4,12 @@ Created on Tue Mar  3 14:54:28 2026
 
 @author: march
 """
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Mar  3 14:54:28 2026
+
+@author: march
+"""
 import streamlit as st
 import base64
 import os
@@ -13,6 +19,7 @@ st.set_page_config(page_title="Simulation TikTok - Léo & Florian", layout="wide
 
 # Nom de votre fichier vidéo unique
 VIDEO_FILE = "v.mp4"
+
 # --- SCÉNARIO DE L'ALGORITHME ---
 SCENARIO = [
     (1, "Analyse biométrique lancée... Pupil Tracking actif.<br>L'utilisateur est captivé."),
@@ -26,7 +33,7 @@ SCENARIO = [
 def render_typewriter(scenario, video_b64):
     js_scenario = ""
     for second, text in scenario:
-        # CORRECTION DU BUG : On remplace les apostrophes par des \' pour que le JavaScript ne crashe pas !
+        # Sécurité pour les apostrophes
         text_html = text.replace("\n", "<br>").replace("'", "\\'")
         js_scenario += f"    {{ time: {second}, text: '{text_html}' }},\n"
 
@@ -37,8 +44,8 @@ def render_typewriter(scenario, video_b64):
         .main-container {{ display: flex; gap: 20px; align-items: start; max-width: 1200px; margin: 0 auto; }}
         
         .phone-container {{ width: 360px; height: 650px; background: #000; border-radius: 30px; border: 12px solid #333; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative; overflow: hidden; }}
-        /* CORRECTION : Ajustement de la vidéo pour voir les contrôles */
-        video {{ width: 100%; height: 100%; object-fit: cover; }}
+        
+        video {{ width: 100%; height: 100%; object-fit: cover; background-color: #000; }}
         
         .terminal-container {{ flex: 1; height: 630px; background-color: #1e1e1e; border: 2px solid #333; border-radius: 10px; font-family: 'Share Tech Mono', monospace; overflow: hidden; position: relative; padding: 20px; box-sizing: border-box; display: flex; flex-direction: column; }}
         .terminal-header {{ position: absolute; top: 0; left: 0; right: 0; height: 30px; background: #333; color: #aaa; display: flex; align-items: center; justify-content: center; font-size: 12px; }}
@@ -55,8 +62,9 @@ def render_typewriter(scenario, video_b64):
 
     <div class="main-container">
         <div class="phone-container">
-            <video id="master-video" autoplay muted playsinline controls>
+            <video id="master-video" autoplay playsinline controls>
                 <source src="data:video/mp4;base64,{video_b64}" type="video/mp4">
+                Votre navigateur ne supporte pas la vidéo.
             </video>
         </div>
 
@@ -80,20 +88,20 @@ def render_typewriter(scenario, video_b64):
         let currentIndex = 0;
         let isWriting = false;
 
+        // On s'assure que la vidéo a bien du son si on clique dessus
+        video.volume = 1.0;
+
         function typeWriter(text, element, speed = 14) {{
             isWriting = true;
             let i = 0;
-            // On prépare le conteneur du texte pour pouvoir le remplir lettre par lettre
             let textContainer = document.createElement('span');
             element.innerHTML = '<span class="timestamp">[' + formatTime(video.currentTime) + '] ANALYSE_LOGS:</span><br>';
             element.appendChild(textContainer);
             
-            // Le curseur qui clignote
             let cursor = document.createElement('span');
             cursor.className = 'cursor';
             element.appendChild(cursor);
 
-            // Pour gérer l'insertion de balises HTML comme <br>
             let tempHTML = "";
 
             function write() {{
@@ -152,14 +160,19 @@ st.markdown("*Simulation de la collecte de données en temps réel.*")
 st.markdown("---")
 
 if os.path.exists(VIDEO_FILE):
-    with open(VIDEO_FILE, "rb") as f:
-        video_bytes = f.read()
-    video_b64 = base64.b64encode(video_bytes).decode()
+    # SÉCURITÉ POIDS DE LA VIDÉO
+    file_size_mb = os.path.getsize(VIDEO_FILE) / (1024 * 1024)
     
-    st.components.v1.html(render_typewriter(SCENARIO, video_b64), height=700)
-    
-    # Message d'aide si la vidéo ne démarre pas
-    st.warning("⚠️ Si la vidéo ne se lance pas toute seule, cliquez sur le bouton 'Play' directement sur le téléphone à gauche !")
+    if file_size_mb > 15:
+        st.error(f"🚨 ATTENTION : Ta vidéo fait {file_size_mb:.1f} Mo. Elle est trop lourde pour être chargée ! Tu dois la compresser en dessous de 10 Mo pour que l'écran ne soit pas noir.")
+    else:
+        with open(VIDEO_FILE, "rb") as f:
+            video_bytes = f.read()
+        video_b64 = base64.b64encode(video_bytes).decode()
+        
+        st.components.v1.html(render_typewriter(SCENARIO, video_b64), height=700)
+        
+        st.warning("⚠️ Si la vidéo ne se lance pas toute seule, cliquez sur le bouton 'Play' directement sur le téléphone à gauche !")
 else:
     st.error(f"Fichier vidéo '{VIDEO_FILE}' introuvable. Placez la vidéo dans le même dossier que ce code.")
 
